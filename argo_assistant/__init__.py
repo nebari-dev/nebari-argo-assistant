@@ -1,7 +1,8 @@
+import logging
+
 from dotenv import load_dotenv
-import logging 
 
 load_dotenv(override=True)
 
 logger = logging.getLogger()
-logger.setLevel('ERROR')
+logger.setLevel("ERROR")

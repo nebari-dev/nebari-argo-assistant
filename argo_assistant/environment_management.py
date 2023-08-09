@@ -26,8 +26,8 @@ def setup_argo_environment(verbose=True):
     # global config set via env vars doens't work properly
     global_config_host = f"https://{os.environ['ARGO_SERVER'].rsplit(':')[0]}{os.environ['ARGO_BASE_HREF']}/"
     global_config.host = global_config_host
-    global_config.token = os.environ['ARGO_TOKEN'] 
-    
+    global_config.token = os.environ["ARGO_TOKEN"]
+
     if verbose:
         display_argo_env_vars()
 
@@ -111,6 +111,6 @@ def get_labels():
     username = os.environ["JUPYTERHUB_USER"]
     labels = {
         "workflows.argoproj.io/creator-preferred-username": sanitize_label(username),
-        'jupyterflow-override': 'true',
+        "jupyterflow-override": "true",
     }
     return labels
