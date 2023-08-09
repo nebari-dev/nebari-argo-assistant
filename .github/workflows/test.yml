@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-      
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
         with:
           mamba-version: "*"
           activate-environment: qreports
-          environment-file: environment.yaml
+          environment-file: environment.yml
           miniforge-variant: Mambaforge
           miniforge-version: 4.9.2-4
 
@@ -49,6 +49,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pre-commit
+          pre-commit install
 
       - name: Lint
         run: |
