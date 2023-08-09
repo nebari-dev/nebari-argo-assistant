@@ -23,3 +23,7 @@ def test_NebariWorkflow_basic():
             echo(arguments={"message": "hello world"})
 
     w.create()
+
+
+def test_placeholder():
+    pass
