@@ -36,7 +36,7 @@ jobs:
 
       - name: Pytest
         run: |
-          pytest tests -svv
+          pytest tests -svv -m "not nebari_resources"
 
   lint:
     runs-on: ubuntu-latest

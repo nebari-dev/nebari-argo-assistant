@@ -19,9 +19,14 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
-    "requests",
+    "hera",
 ]
 
 [project.optional-dependencies]
 dev = ["pre-commit"]
 test = ["pytest"]
+
+[tool.pytest.ini_options]
+markers = [
+    "nebari_resources: test must be run on nebari and requires compute resources",
+]
