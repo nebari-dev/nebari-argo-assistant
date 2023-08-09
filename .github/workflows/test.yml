@@ -22,7 +22,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           mamba-version: "*"
-          activate-environment: qreports
+          activate-environment: argo_assistant
           environment-file: environment.yml
           miniforge-variant: Mambaforge
           miniforge-version: 4.9.2-4
