@@ -1,5 +1,7 @@
 import logging
 import os
+import subprocess
+from pathlib import Path
 
 from hera.workflows import Container, Parameter, Steps, Workflow
 from hera.workflows.models import TTLStrategy
@@ -85,6 +87,10 @@ def create_bash_container(name="bash-container"):
 
 def submit_argo_script(script_path, conda_env, stdout_path="stdout.txt"):
     """Submit a script to be run via Argo in a specific environment"""
+    validated = validate_submission(script_path, conda_env)
+
+    if not validated:
+        raise RuntimeError("Unable to submit Argo workflow")
 
     conda_command = create_conda_command(script_path, conda_env, stdout_path)
 
@@ -106,3 +112,28 @@ def submit_argo_script(script_path, conda_env, stdout_path="stdout.txt"):
 
     workflow = w.create()
     return workflow
+
+
+def validate_submission(script_path, conda_env):
+    """Validates and error checks for common issues.
+    TODO: this is temporary until we get better logging for Argo
+    """
+    success = True
+    # ensure that the script exists
+    script_path = Path(script_path)
+    if not script_path.exists():
+        success = False
+        LOGGER.error(f"Script file does not exist at {script_path}")
+
+    # ensure that the conda env exists (loose check)
+    result = subprocess.run(
+        ["conda env list"],
+        shell=True,
+        capture_output=True,
+        text=True,
+    )
+    if conda_env not in result.stdout:
+        success = False
+        LOGGER.error(f"Conda env {conda_env} does not exist")
+
+    return success
