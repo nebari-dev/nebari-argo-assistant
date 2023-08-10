@@ -21,6 +21,7 @@ def temp_local_file(tmp_path_factory):
 
 
 @pytest.fixture(scope="session")
+@pytest.mark.nebari_resources
 def temp_s3_file(temp_local_file, s3_bucket):
     """Temporary remote file on s3 for testing"""
     s3()
@@ -39,6 +40,7 @@ def test_s3_client():
     assert isinstance(client, S3FileSystem)
 
 
+@pytest.mark.nebari_resources
 def test_get_file(temp_s3_file):
     local_path = "temp_local_test.py"
     get_file(temp_s3_file, local_path)
@@ -49,6 +51,7 @@ def test_get_file(temp_s3_file):
     local_path.unlink()
 
 
+@pytest.mark.nebari_resources
 def test_put_remove_file(temp_local_file, s3_bucket):
     remote_path = f"{s3_bucket}/temp_file_test.py"
 
